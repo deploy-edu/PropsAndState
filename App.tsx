@@ -15,6 +15,20 @@ export default function App() {
     setCount(count + 1);
   };
 
+  const updateTime = () => {
+    setHHmmss((state) => {
+      const tmp = parseInt(state.replace(/:/g, ""), 10);
+      const HH = Math.floor(tmp / 10000);
+      const mm = Math.floor((tmp % 10000) / 100);
+      const ss = tmp % 100;
+      const next = (HH * 3600 + mm * 60 + ss + 1) % 86400;
+      const nextHH = String(Math.floor(next / 3600)).padStart(2, "0");
+      const nextmm = String(Math.floor((next % 3600) / 60)).padStart(2, "0");
+      const nextss = String(next % 60).padStart(2, "0");
+      return `${nextHH}:${nextmm}:${nextss}`;
+    });
+  };
+
   // 컴포넌트가 마운트 될 때 실행
   useEffect(() => {
     if (isStarted === false) {
@@ -22,19 +36,9 @@ export default function App() {
       return;
     }
 
-    const interval = setInterval(() => {
-      setHHmmss((state) => {
-        const tmp = parseInt(state.replace(/:/g, ""), 10);
-        const HH = Math.floor(tmp / 10000);
-        const mm = Math.floor((tmp % 10000) / 100);
-        const ss = tmp % 100;
-        const next = (HH * 3600 + mm * 60 + ss + 1) % 86400;
-        const nextHH = String(Math.floor(next / 3600)).padStart(2, "0");
-        const nextmm = String(Math.floor((next % 3600) / 60)).padStart(2, "0");
-        const nextss = String(next % 60).padStart(2, "0");
-        return `${nextHH}:${nextmm}:${nextss}`;
-      });
-    }, 1000);
+    updateTime();
+
+    const interval = setInterval(updateTime, 1000);
 
     // 컴포넌트가 언마운트 될 때 실행
     return () => {
