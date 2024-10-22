@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import Counter from "./Counter";
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -10,9 +11,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={handlePress}>
-        <Text>{count}</Text>
-      </Pressable>
+      <Counter count={count} handlePress={handlePress} />
     </View>
   );
 }
