@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Counter from "./Counter";
+import Timer from "./Timer";
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -11,6 +12,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Timer HHmmss="00:00:00" />
       <Counter count={count} handlePress={handlePress} />
     </View>
   );
