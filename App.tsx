@@ -1,14 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Counter from "./Counter";
 import Timer from "./Timer";
 
 export default function App() {
   const [count, setCount] = useState(0);
+  const [HHmmss, setHHmmss] = useState("00:00:00");
 
   const handlePress = () => {
     setCount(count + 1);
   };
+
+  // 컴포넌트가 마운트 될 때 실행
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHHmmss((state) => {
+        const tmp = parseInt(state.replace(/:/g, ""), 10);
+        const HH = Math.floor(tmp / 10000);
+        const mm = Math.floor((tmp % 10000) / 100);
+        const ss = tmp % 100;
+        const next = (HH * 3600 + mm * 60 + ss + 1) % 86400;
+        const nextHH = String(Math.floor(next / 3600)).padStart(2, "0");
+        const nextmm = String(Math.floor((next % 3600) / 60)).padStart(2, "0");
+        const nextss = String(next % 60).padStart(2, "0");
+        return `${nextHH}:${nextmm}:${nextss}`;
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <View
@@ -19,7 +41,7 @@ export default function App() {
         },
       ]}
     >
-      <Timer HHmmss="00:00:00" />
+      <Timer HHmmss={HHmmss} />
       <Counter count={count} handlePress={handlePress} />
     </View>
   );
