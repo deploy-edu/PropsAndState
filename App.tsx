@@ -5,14 +5,23 @@ import Timer from "./Timer";
 
 export default function App() {
   const [count, setCount] = useState(0);
+  const [isStarted, setIsStarted] = useState(false);
   const [HHmmss, setHHmmss] = useState("00:00:00");
 
   const handlePress = () => {
+    if (count === 0) {
+      setIsStarted(true);
+    }
     setCount(count + 1);
   };
 
   // 컴포넌트가 마운트 될 때 실행
   useEffect(() => {
+    if (isStarted === false) {
+      setHHmmss("00:00:00");
+      return;
+    }
+
     const interval = setInterval(() => {
       setHHmmss((state) => {
         const tmp = parseInt(state.replace(/:/g, ""), 10);
@@ -31,7 +40,7 @@ export default function App() {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [isStarted]);
 
   return (
     <View
