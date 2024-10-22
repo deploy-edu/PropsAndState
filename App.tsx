@@ -27,6 +27,7 @@ export default function App() {
       });
     }, 1000);
 
+    // 컴포넌트가 언마운트 될 때 실행
     return () => {
       clearInterval(interval);
     };
