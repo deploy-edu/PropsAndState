@@ -42,6 +42,20 @@ export default function App() {
     };
   }, [isStarted]);
 
+  useEffect(() => {
+    if (isStarted === false) {
+      return;
+    }
+
+    // 25초안에 200번 클릭하면 타이머가 멈추도록 설정
+    if (parseInt(HHmmss.replace(/:/g, ""), 10) > 24) {
+      if (count < 200) {
+        setIsStarted(false);
+        setCount(0);
+      }
+    }
+  }, [count, HHmmss, isStarted]);
+
   return (
     <View
       style={[
