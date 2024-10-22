@@ -8,8 +8,23 @@ type Props = {
 
 const Counter: FC<Props> = ({ count, handlePress }) => {
   return (
-    <Pressable onPress={handlePress}>
-      <Text>{count}</Text>
+    <Pressable
+      onPress={handlePress}
+      style={{
+        backgroundColor: "skyblue",
+        alignItems: "center",
+        justifyContent: "center",
+        flex: 1,
+      }}
+    >
+      <Text
+        style={{
+          fontSize: 100,
+          color: "white",
+        }}
+      >
+        {count}
+      </Text>
     </Pressable>
   );
 };
