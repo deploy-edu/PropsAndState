@@ -9,7 +9,6 @@ const Timer: FC<Props> = ({ HHmmss }) => {
   return (
     <View
       style={{
-        backgroundColor: "skyblue",
         alignItems: "center",
         justifyContent: "center",
       }}

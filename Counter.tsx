@@ -11,7 +11,6 @@ const Counter: FC<Props> = ({ count, handlePress }) => {
     <Pressable
       onPress={handlePress}
       style={{
-        backgroundColor: "skyblue",
         alignItems: "center",
         justifyContent: "center",
         flex: 1,

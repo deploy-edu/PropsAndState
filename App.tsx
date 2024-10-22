@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Counter from "./Counter";
 import Timer from "./Timer";
 
@@ -11,16 +11,23 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        {
+          paddingTop: 100,
+        },
+      ]}
+    >
       <Timer HHmmss="00:00:00" />
       <Counter count={count} handlePress={handlePress} />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "skyblue",
   },
 });
