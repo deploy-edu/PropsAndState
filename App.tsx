@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Counter from "./Counter";
+import Result from "./Result";
 import Timer from "./Timer";
 
 export default function App() {
   const [count, setCount] = useState(0);
   const [isStarted, setIsStarted] = useState(false);
   const [HHmmss, setHHmmss] = useState("00:00:00");
+  const [isFailed, setIsFailed] = useState(false);
+  const [isPassed, setIsPassed] = useState(false);
 
   const handlePress = () => {
     if (count === 0) {
       setIsStarted(true);
+      setIsFailed(false);
+      setIsPassed(false);
     }
+
     setCount(count + 1);
   };
 
@@ -55,6 +61,11 @@ export default function App() {
     if (parseInt(HHmmss.replace(/:/g, ""), 10) > 24) {
       if (count < 200) {
         setIsStarted(false);
+        setIsFailed(true);
+        setCount(0);
+      } else {
+        setIsPassed(true);
+        setIsStarted(false);
         setCount(0);
       }
     }
@@ -66,11 +77,13 @@ export default function App() {
         styles.container,
         {
           paddingTop: 100,
+          paddingBottom: 100,
         },
       ]}
     >
       <Timer HHmmss={HHmmss} />
       <Counter count={count} handlePress={handlePress} />
+      <Result isFailed={isFailed} isPassed={isPassed} count={count} />
     </View>
   );
 }
