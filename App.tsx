@@ -21,6 +21,10 @@ export default function App() {
     setCount(count + 1);
   };
 
+  const handleLongPress = () => {
+    setCount(0);
+  };
+
   const updateTime = () => {
     setHHmmss((state) => {
       const tmp = parseInt(state.replace(/:/g, ""), 10);
@@ -62,11 +66,9 @@ export default function App() {
       if (count < 200) {
         setIsStarted(false);
         setIsFailed(true);
-        setCount(0);
       } else {
         setIsPassed(true);
         setIsStarted(false);
-        setCount(0);
       }
     }
   }, [count, HHmmss, isStarted]);
@@ -82,7 +84,11 @@ export default function App() {
       ]}
     >
       <Timer HHmmss={HHmmss} />
-      <Counter count={count} handlePress={handlePress} />
+      <Counter
+        count={count}
+        handlePress={handlePress}
+        handleLongPress={handleLongPress}
+      />
       <Result isFailed={isFailed} isPassed={isPassed} count={count} />
     </View>
   );
